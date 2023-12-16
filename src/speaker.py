@@ -5,12 +5,8 @@ from pyannote.audio import Pipeline
 from helper import extract_audio
 from common import paths
 
-# Read the JSON file
-with open(os.path.join(paths.AUTH_DIR, 'auth.json')) as f:
-    data = json.load(f)
-
 # Get the authentication token from the JSON data
-AUTH_TOKEN = data['token']
+AUTH_TOKEN = "Replace this with your authentication token"
 AUDIO_PATH = os.path.join(paths.AUDIO_DIR, 'audio.wav')
 VIDEO_PATH = os.path.join(paths.VIDEO_DIR, 'video.mp4')
 OUTPUT_FILE = os.path.join(paths.OUTPUT_DIR, 'output.json')
