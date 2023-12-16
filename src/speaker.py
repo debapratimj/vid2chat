@@ -25,18 +25,20 @@ pipeline.to(torch.device("cuda"))
 # apply pretrained pipeline
 diarization = pipeline(AUDIO_PATH)
 
-# Save the result to a file
+# Create a list to store the information
+diarization_info = []
 
-if not os.path.exists(OUTPUT_FILE):
-    with open(OUTPUT_FILE, "w") as f:
-        f.write("{}")
+# Assuming your existing code for diarization
+for turn, _, speaker in diarization.itertracks(yield_label=True):
+    entry = {
+        "start": turn.start,
+        "stop": turn.end,
+        "speaker": f"speaker_{speaker}"
+    }
+    diarization_info.append(entry)
 
-with open(OUTPUT_FILE, "r+") as f:
-    result = json.load(f)
-    for turn, _, speaker in diarization.itertracks(yield_label=True):
-        if speaker not in result:
-            result[speaker] = []
-        result[speaker].append([turn.start, turn.end])
+# Write the information to the JSON file
+with open(OUTPUT_FILE, 'w') as json_file:
+    json.dump(diarization_info, json_file, indent=2)
 
-    with open(FINAL_OUTPUT_FILE, "w") as f:
-        json.dump(result, f)
+print(f"\nDiarization information has been written to {OUTPUT_FILE}")

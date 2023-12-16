@@ -18,7 +18,7 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--output_dir', type=str, default='subtitled/', help='Output directory')
 
     # scripts
-    subprocess.run(['python3', 'speaker.py'])
+    subprocess.run(['python3', 'speaker.py'], cwd='src')
 
     args = parser.parse_args()
 
