@@ -1,12 +1,9 @@
 import os
 import argparse
 
-
 from audioHelper import *
-#from videoHelper import *
 from common import paths
 import subprocess
-#from transformers import Speech2TextProcessor, Speech2TextForConditionalGeneration
 
 def main():
     # Load the audio file
