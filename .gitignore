@@ -26,5 +26,4 @@ dmypy.json
 
 # directories
 /vid2chat/
-/data/
-/output/
+/auth/
