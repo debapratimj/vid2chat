@@ -1,2 +1,3 @@
 auto-subtitle
 ffmpeg-python
+pyannote-audio

@@ -4,6 +4,7 @@ import torch
 from pyannote.audio import Pipeline
 from helper import extract_audio
 from common import paths
+import os
 
 AUTH_TOKEN = "Replace this with your authentication token"
 AUDIO_PATH = os.path.join(paths.AUDIO_DIR, 'audio.wav')
@@ -25,20 +26,17 @@ pipeline.to(torch.device("cuda"))
 diarization = pipeline(AUDIO_PATH)
 
 # Save the result to a file
-with open(OUTPUT_FILE, "w") as f:
-        result = {}
-        for turn, _, speaker in diarization.itertracks(yield_label=True):
-            if speaker not in result:
-                result[speaker] = []
-            result[speaker].append([turn.start, turn.end])
 
-        with open(FINAL_OUTPUT_FILE, "w") as f:
-            json.dump(result, f)
+if not os.path.exists(OUTPUT_FILE):
+    with open(OUTPUT_FILE, "w") as f:
+        f.write("{}")
 
+with open(OUTPUT_FILE, "r+") as f:
+    result = json.load(f)
+    for turn, _, speaker in diarization.itertracks(yield_label=True):
+        if speaker not in result:
+            result[speaker] = []
+        result[speaker].append([turn.start, turn.end])
 
-
-
-# start=0.2s stop=1.5s speaker_0
-# start=1.8s stop=3.9s speaker_1
-# start=4.2s stop=5.7s speaker_0
-# ...
+    with open(FINAL_OUTPUT_FILE, "w") as f:
+        json.dump(result, f)
