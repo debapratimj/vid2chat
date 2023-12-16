@@ -5,7 +5,6 @@ from pyannote.audio import Pipeline
 from helper import extract_audio
 from common import paths
 
-# Get the authentication token from the JSON data
 AUTH_TOKEN = "Replace this with your authentication token"
 AUDIO_PATH = os.path.join(paths.AUDIO_DIR, 'audio.wav')
 VIDEO_PATH = os.path.join(paths.VIDEO_DIR, 'video.mp4')
@@ -27,11 +26,7 @@ diarization = pipeline(AUDIO_PATH)
 
 # Save the result to a file
 with open(OUTPUT_FILE, "w") as f:
-    for turn, _, speaker in diarization.itertracks(yield_label=True):
-        f.write(f"start={turn.start:.1f}s stop={turn.end:.1f}s speaker_{speaker}\n")
-        # Save the result to a JSON file
         result = {}
-
         for turn, _, speaker in diarization.itertracks(yield_label=True):
             if speaker not in result:
                 result[speaker] = []
