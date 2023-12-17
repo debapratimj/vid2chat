@@ -6,6 +6,7 @@ current_path = os.getcwd()
 parts = current_path.split("vid2chat")
 BASE_DIR = parts[0] + "/vid2chat"
 
+SRC_DIR = os.path.join(BASE_DIR, 'src')
 DATA_DIR = os.path.join(BASE_DIR, 'data')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'output')
 

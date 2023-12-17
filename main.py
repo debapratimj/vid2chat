@@ -1,14 +1,13 @@
 import os
 import subprocess
-from audioHelper import *
-from common import paths
+from src.common import paths
 
 def main():
     # speaker diarization
-    subprocess.run(['python3', 'speaker.py'], cwd='src')
+    subprocess.run(['python3', 'speaker.py'], cwd=paths.SRC_DIR)
 
     # video splitting
-    subprocess.run(['python3', 'split.py'], cwd='src')
+    subprocess.run(['python3', 'split.py'], cwd=paths.SRC_DIR)
 
     # srt generation for speaker 0
     for filename in os.listdir(paths.SPEAKER_0_DIR):
