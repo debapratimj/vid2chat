@@ -1,29 +1,34 @@
 import os
-import argparse
-
+import subprocess
 from audioHelper import *
 from common import paths
-import subprocess
 
 def main():
-    # Load the audio file
-    file_path = os.path.join(paths.AUDIO_DIR, 'audio_1.wav')
-    file_path_out = os.path.join(paths.AUDIO_DIR, 'audio_1_resized.wav')
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Extract conversation from video')
-    parser.add_argument('--srt_only', type=bool, default=False, help='Generate SRT file only')
-    parser.add_argument('--task', type=str, default='translate', help='Subtitle task')
-    parser.add_argument('input_file', type=str, help='Input video file')
-    parser.add_argument('-o', '--output_dir', type=str, default='subtitled/', help='Output directory')
-
-    # scripts
+    # speaker diarization
     subprocess.run(['python3', 'speaker.py'], cwd='src')
 
-    args = parser.parse_args()
+    # video splitting
+    subprocess.run(['python3', 'split.py'], cwd='src')
 
-    main()
-    
+    # srt generation for speaker 0
+    for filename in os.listdir(paths.SPEAKER_0_DIR):
+        subprocess.run(['auto_subtitle', 
+                        '--model', 'large',
+                        '--srt_only', 'true', 
+                        '--task', 'translate', 
+                        f'{os.path.join(paths.SPEAKER_0_DIR, filename)}', 
+                        '-o', 
+                        f'{os.path.join(paths.SRT_SPEAKER_0_DIR, filename[:-4])}.srt'])
+        
+    # srt generation for speaker 1
+    for filename in os.listdir(paths.SPEAKER_1_DIR):
+        subprocess.run(['auto_subtitle',
+                        '--model', 'large', 
+                        '--srt_only', 'true', 
+                        '--task', 'translate', 
+                        f'{os.path.join(paths.SPEAKER_1_DIR, filename)}', 
+                        '-o', 
+                        f'{os.path.join(paths.SRT_SPEAKER_1_DIR, filename[:-4])}.srt'])
 
 if __name__ == '__main__':
     main()
