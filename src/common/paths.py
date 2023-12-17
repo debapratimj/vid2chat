@@ -10,6 +10,7 @@ DATA_DIR = os.path.join(BASE_DIR, 'data')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'output')
 
 AUDIO_DIR = os.path.join(DATA_DIR, 'audio')
-VIDEO_DIR = os.path.join(DATA_DIR, 'video')
+VIDEO_DIR = os.path.join(DATA_DIR, 'original_video')
+SPLIT_VIDEO_DIR = os.path.join(DATA_DIR, 'segmented_video')
 AUTH_DIR = os.path.join(DATA_DIR, 'auth')
 OUTPUT_JSON_DIR = os.path.join(DATA_DIR, 'output_json')
