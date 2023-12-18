@@ -30,6 +30,3 @@ def split_video(input_path, start_time, end_time, output_path="output.mp4"):
 
     except Exception as e:
         print(f"Error: {e}")
-
-# Example usage:
-split_video('video.mp4', 4, 9)
