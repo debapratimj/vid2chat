@@ -28,6 +28,9 @@ def main():
                         f'{os.path.join(paths.SPEAKER_1_DIR, filename)}', 
                         '-o', 
                         paths.SRT_SPEAKER_DIR])
+        
+    # text bonding
+    subprocess.run(['python3', 'textBond.py'], cwd=paths.SRC_DIR)
 
 if __name__ == '__main__':
     main()
