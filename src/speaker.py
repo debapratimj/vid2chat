@@ -6,7 +6,7 @@ from helper import extract_audio
 from common import paths
 import os
 
-AUTH_TOKEN = "Replace this with your authentication token"
+AUTH_TOKEN = "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"
 AUDIO_PATH = os.path.join(paths.AUDIO_DIR, 'audio.wav')
 VIDEO_PATH = os.path.join(paths.VIDEO_DIR, 'video.mp4')
 OUTPUT_FILE = os.path.join(paths.OUTPUT_DIR, 'output.json')
@@ -31,9 +31,9 @@ diarization_info = []
 # Assuming your existing code for diarization
 for turn, _, speaker in diarization.itertracks(yield_label=True):
     entry = {
-        "start": turn.start,
-        "stop": turn.end,
-        "speaker": f"speaker_{speaker}"
+        "start": round(turn.start, 3),
+        "stop": round(turn.end, 3),
+        "speaker": speaker
     }
     diarization_info.append(entry)
 

@@ -17,7 +17,7 @@ def main():
                         '--task', 'translate', 
                         f'{os.path.join(paths.SPEAKER_0_DIR, filename)}', 
                         '-o', 
-                        f'{os.path.join(paths.SRT_SPEAKER_0_DIR, filename[:-4])}.srt'])
+                        f'{os.path.join(paths.SRT_SPEAKER_0_DIR, filename[:-4])}'])
         
     # srt generation for speaker 1
     for filename in os.listdir(paths.SPEAKER_1_DIR):
@@ -27,7 +27,7 @@ def main():
                         '--task', 'translate', 
                         f'{os.path.join(paths.SPEAKER_1_DIR, filename)}', 
                         '-o', 
-                        f'{os.path.join(paths.SRT_SPEAKER_1_DIR, filename[:-4])}.srt'])
+                        f'{os.path.join(paths.SRT_SPEAKER_1_DIR, filename[:-4])}'])
 
 if __name__ == '__main__':
     main()
