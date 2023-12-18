@@ -19,7 +19,7 @@ with open(OUTPUT_FILE) as json_file:
         end = data[i]['stop']
         speaker = data[i]['speaker']
         if speaker[-1] == '1':
-            split_video(VIDEO_PATH, start, end, f'{os.path.join(SPEAKER1_OUTPUT_VIDEO, speaker)}_{start:.2f}_{end:.2f}.mp4')
+            split_video(VIDEO_PATH, start, end, f'{os.path.join(SPEAKER1_OUTPUT_VIDEO, speaker)}_{round(start, 3)}_{round(end, 3)}.mp4')
         else:
-            split_video(VIDEO_PATH, start, end, f'{os.path.join(SPEAKER0_OUTPUT_VIDEO, speaker)}_{start:.2f}_{end:.2f}.mp4')
+            split_video(VIDEO_PATH, start, end, f'{os.path.join(SPEAKER0_OUTPUT_VIDEO, speaker)}_{round(start, 3)}_{round(end, 3)}.mp4')
         
