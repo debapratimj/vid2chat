@@ -11,17 +11,19 @@ time_threshold = 1.0
 with open(file_path, "r") as file:
     data = json.load(file)
 
+print(data[0]['speaker'])
+
 # Get the first value of the speaker key
 actual_speaker = data["speaker"][0]
 
 conversation = {'speaker_0': [], 'speaker_1': []}
 
 i = 0
-while data["speaker"][i] == actual_speaker:
+while data[i]["speaker"] == actual_speaker:
 
     # Get the start and end time of the speaker
-    start = data["start"][i]
-    end = data["stop"][i]
+    start = data[i]["start"]
+    end = data[i]["stop"]
     srt_file_path = f'{os.path.join(paths.SRT_SPEAKER_DIR, actual_speaker)}_{round(start, 3)}_{round(end, 3)}.srt'
 
     # Read the srt file
@@ -34,7 +36,7 @@ while data["speaker"][i] == actual_speaker:
         conversation['speaker_1'].append([srt_text])
 
     i += 1
-    actual_speaker = data["speaker"][i]
+    actual_speaker = data[i]["speaker"]
 
 # Write the conversation to a JSON file
 with open(os.path.join(paths.OUTPUT_DIR, 'conversation.json'), 'w') as json_file:
