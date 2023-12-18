@@ -14,7 +14,7 @@ with open(file_path, "r") as file:
 print(data[0]['speaker'])
 
 # Get the first value of the speaker key
-actual_speaker = data["speaker"][0]
+actual_speaker = data[0]["speaker"]
 
 conversation = {'speaker_0': [], 'speaker_1': []}
 
