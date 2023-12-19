@@ -29,6 +29,8 @@ while data[i]["speaker"] == actual_speaker:
     # Read the srt file
     with open(srt_file_path, "r") as srt_file:
         srt_text = srt_file.read()
+        # extract the text from the srt file
+        srt_text = srt_text.split('\n')[2]
     
     if actual_speaker[-1] == '0':
         conversation['speaker_0'].append([srt_text])
