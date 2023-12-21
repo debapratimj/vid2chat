@@ -37,18 +37,12 @@ for turn, _, speaker in diarization.itertracks(yield_label=True):
     }
     diarization_info.append(entry)
 
+# Convert the last stop time to int to avoid diarization error for the last video segment
+diarization_info[-1]['stop'] = int(diarization_info[-1]['stop'])
+
 # Write the information to the JSON file
 with open(OUTPUT_FILE, 'w') as json_file:
     json.dump(diarization_info, json_file, indent=2)
-    # close the file
-    json_file.close()
-
-# Access the last element of the json file and get the end time and round it down to make it an integer and rewrite the element
-with open(OUTPUT_FILE, 'w') as json_file:
-    data = json.load(json_file)
-    last_element = data[-1]['stop']
-    data[-1]['stop'] = int(last_element)
-    json.dump(data, json_file, indent=2)
     # close the file
     json_file.close()
 
