@@ -11,15 +11,17 @@ OUTPUT_FILE = os.path.join(paths.OUTPUT_DIR, 'output.json')
 SPEAKER0_OUTPUT_VIDEO = paths.SPEAKER_0_DIR
 SPEAKER1_OUTPUT_VIDEO = paths.SPEAKER_1_DIR
 
-# Split the video into desired parts
+# Load the JSON file
 with open(OUTPUT_FILE) as json_file:
     data = json.load(json_file)
-    for i in range(len(data)):
-        start = data[i]['start']
-        end = data[i]['stop']
-        speaker = data[i]['speaker']
-        if speaker[-1] == '1':
-            split_video(VIDEO_PATH, start, end, f'{os.path.join(SPEAKER1_OUTPUT_VIDEO, speaker)}_{round(start, 3)}_{round(end, 3)}.mp4')
-        else:
-            split_video(VIDEO_PATH, start, end, f'{os.path.join(SPEAKER0_OUTPUT_VIDEO, speaker)}_{round(start, 3)}_{round(end, 3)}.mp4')
+
+# Split the video into desired parts
+for i in range(len(data)):
+    start = data[i]['start']
+    end = data[i]['stop']
+    speaker = data[i]['speaker']
+    if speaker[-1] == '1':
+        split_video(VIDEO_PATH, start, end, f'{os.path.join(SPEAKER1_OUTPUT_VIDEO, speaker)}_{round(start, 3)}_{round(end, 3)}.mp4')
+    else:
+        split_video(VIDEO_PATH, start, end, f'{os.path.join(SPEAKER0_OUTPUT_VIDEO, speaker)}_{round(start, 3)}_{round(end, 3)}.mp4')
         

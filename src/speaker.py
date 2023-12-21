@@ -40,13 +40,16 @@ for turn, _, speaker in diarization.itertracks(yield_label=True):
 # Write the information to the JSON file
 with open(OUTPUT_FILE, 'w') as json_file:
     json.dump(diarization_info, json_file, indent=2)
+    # close the file
+    json_file.close()
 
 # Access the last element of the json file and get the end time and round it down to make it an integer and rewrite the element
-with open(OUTPUT_FILE, 'r+') as json_file:
+with open(OUTPUT_FILE, 'w') as json_file:
     data = json.load(json_file)
     last_element = data[-1]['stop']
     data[-1]['stop'] = int(last_element)
-    json_file.seek(0)  # Move the file pointer to the beginning of the file
     json.dump(data, json_file, indent=2)
+    # close the file
+    json_file.close()
 
 print(f"\nDiarization information has been written to {OUTPUT_FILE}")
