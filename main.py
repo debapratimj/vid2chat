@@ -32,5 +32,8 @@ def main():
     # text bonding
     subprocess.run(['python3', 'textBond.py'], cwd=paths.SRC_DIR)
 
+    # create csv file
+    subprocess.run(['python3', 'make_csv.py'], cwd=paths.SRC_DIR)
+
 if __name__ == '__main__':
     main()
