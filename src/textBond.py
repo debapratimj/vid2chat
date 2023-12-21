@@ -1,3 +1,4 @@
+import re
 import json
 import os
 from common import paths
@@ -11,34 +12,24 @@ time_threshold = 1.0
 with open(file_path, "r") as file:
     data = json.load(file)
 
-print(data[0]['speaker'])
-
-# Get the first value of the speaker key
-actual_speaker = data[0]["speaker"]
-
 conversation = {'speaker_0': [], 'speaker_1': []}
 
-i = 0
-while data[i]["speaker"] == actual_speaker:
+# Define a regular expression pattern to match the text between the timestamps
+pattern = r"\d+\n\d+:\d+:\d+\.\d+ --> \d+:\d+:\d+\.\d+\n(.+)"
 
-    # Get the start and end time of the speaker
-    start = data[i]["start"]
-    end = data[i]["stop"]
-    srt_file_path = f'{os.path.join(paths.SRT_SPEAKER_DIR, actual_speaker)}_{round(start, 3)}_{round(end, 3)}.srt'
+# Loop through the data
+for item in data:
+    # Get the text from the current item
+    text = item.get("text", "")
+    # Use re.search to find the match
+    match = re.search(pattern, text)
 
-    # Read the srt file
-    with open(srt_file_path, "r") as srt_file:
-        srt_text = srt_file.read()
-        # extract the text from the srt file
-        srt_text = srt_text.split('\n')[2]
-    
-    if actual_speaker[-1] == '0':
-        conversation['speaker_0'].append([srt_text])
+    # Determine the speaker and add the text to the conversation dictionary
+    if item["speaker"].endswith('0'):
+        conversation['speaker_0'].append(match.group(1))
     else:
-        conversation['speaker_1'].append([srt_text])
+        conversation['speaker_1'].append(match.group(1))
 
-    i += 1
-    actual_speaker = data[i]["speaker"]
 
 # Write the conversation to a JSON file
 with open(os.path.join(paths.OUTPUT_DIR, 'conversation.json'), 'w') as json_file:
