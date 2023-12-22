@@ -1,9 +1,7 @@
-#from moviepy.video.io.VideoFileClip import VideoFileClip
-#import json
+from moviepy.video.io.VideoFileClip import VideoFileClip
+import json
 from common.noise_words import noise_words
 
-
-'''
 def extract_audio(video_path, output_audio_path):
     """Extract audio from video"""
     video_clip = VideoFileClip(video_path)
@@ -34,8 +32,6 @@ def split_video(input_path, start_time, end_time, output_path="output.mp4"):
 
     except Exception as e:
         print(f"Error: {e}")
-'''
-
 
 # Function to check if a sentence is noise
 def is_noise(sentence, noise_list=noise_words):

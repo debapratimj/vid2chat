@@ -37,4 +37,4 @@ else:
 df.columns = ['Therapist', 'Patient']
 
 # write the dataframe to a csv file
-df.to_csv(os.path.join(paths.OUTPUT_DIR, 'final_conversation.csv'), index=False)
+df.to_csv(os.path.join(paths.OUTPUT_DIR, 'finaconversation.csv'), index=False)
