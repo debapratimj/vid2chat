@@ -7,7 +7,7 @@ from helper import remove_noise_sentences
 # Specify the path to the output.json file
 file_path = os.path.join(paths.OUTPUT_DIR, 'output.json')
 
-time_threshold = 1.0
+time_threshold = 2.0
 
 # Read the JSON file
 with open(file_path, "r") as file:
@@ -37,7 +37,7 @@ for item in data:
             item = data[i]
             break
     
-    if speaker == item['speaker']:
+    if speaker == item['speaker'] and (float(item['stop']) - float(start)) > time_threshold:
 
         stop = item['stop']
         srt_name = f"{speaker}_{start}_{stop}.srt"
@@ -50,7 +50,7 @@ for item in data:
         #print(srt_data)
         # Use re.findall to find all matches
         match = re.findall(pattern, srt_data, re.DOTALL)
-        sentences = [string.replace("\n", "") for string in match]
+        sentences = [string.replace("\n", " ") for string in match]
         print(sentences)
 
         # Determine the speaker and add the text to the conversation dictionary
@@ -78,7 +78,7 @@ for item in data:
         #print(srt_data)
         # Use re.findall to find all matches
         match = re.findall(pattern, srt_data, re.DOTALL)
-        sentences = [string.replace("\n", "") for string in match]
+        sentences = [string.replace("\n", " ") for string in match]
 
         # Determine the speaker and add the text to the conversation dictionary
         if item["speaker"].endswith('0'):

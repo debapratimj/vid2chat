@@ -4,11 +4,15 @@ import pandas as pd
 from common import paths
 
 # Load data from the JSON file
-with open(os.path.join(paths.OUTPUT_DIR, 'final_conversation.json')) as json_file:
+#with open(os.path.join(paths.OUTPUT_DIR, 'final_conversation.json')) as json_file:
+with open(os.path.join(paths.OUTPUT_DIR, 'conversation.json')) as json_file:
     data = json.load(json_file)
 
 # Create a Pandas DataFrame from the JSON data
 df = pd.DataFrame.from_dict(data, orient='index')
+
+# Remove rows where all values are empty strings
+df = df[~(df.apply(lambda x: x == '').all(axis=1))]
 
 # Transpose the DataFrame
 df = df.transpose()
@@ -37,4 +41,4 @@ else:
 df.columns = ['Therapist', 'Patient']
 
 # write the dataframe to a csv file
-df.to_csv(os.path.join(paths.OUTPUT_DIR, 'finaconversation.csv'), index=False)
+df.to_csv(os.path.join(paths.OUTPUT_DIR, 'final_conversation_csv.csv'), index=False)
