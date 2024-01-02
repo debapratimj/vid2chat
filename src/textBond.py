@@ -5,9 +5,7 @@ from common import paths
 from helper import remove_noise_sentences
 
 # Specify the path to the output.json file
-file_path = os.path.join(paths.OUTPUT_DIR, 'output.json')
-
-time_threshold = 2.0
+file_path = os.path.join(paths.OUTPUT_DIR, 'filtered_output.json')
 
 # Read the JSON file
 with open(file_path, "r") as file:
@@ -37,7 +35,7 @@ for item in data:
             item = data[i]
             break
     
-    if speaker == item['speaker'] and (float(item['stop']) - float(start)) > time_threshold:
+    if speaker == item['speaker']:
 
         stop = item['stop']
         srt_name = f"{speaker}_{start}_{stop}.srt"
@@ -51,19 +49,21 @@ for item in data:
         # Use re.findall to find all matches
         match = re.findall(pattern, srt_data, re.DOTALL)
         sentences = [string.replace("\n", " ") for string in match]
-        print(sentences)
+        #print(sentences)
 
         # Determine the speaker and add the text to the conversation dictionary
         if item["speaker"].endswith('0'):
             if len(sentences) != 0:
                 conversation['speaker_0'][-1] += ' '.join(sentences)
             else:
-                print(item)
+                pass
+                #print(item)
         else:
             if len(sentences) != 0:
                 conversation['speaker_1'][-1] += ' '.join(sentences)
             else:
-                print(item)
+                pass
+                #print(item)
     else:
 
         speaker = item['speaker']
@@ -85,12 +85,14 @@ for item in data:
             if len(sentences) != 0:
                 conversation['speaker_0'].append(' '.join(sentences))
             else:
-                print(item)
+                pass
+                #print(item)
         else:
             if len(sentences) != 0:
                 conversation['speaker_1'].append(' '.join(sentences))
             else:
-                print(item)
+                pass
+                #print(item)
         
     # Remove the item from the list
     start_times.remove(start)
