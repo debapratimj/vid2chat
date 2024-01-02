@@ -1,8 +1,0 @@
-1
-0:00:00.000 --> 0:00:01.040
-What do you do?
-
-2
-0:00:01.040 --> 0:00:04.220
-So this is, so we're back to the point before the lecture.
-
